@@ -3,7 +3,6 @@ from flask.ext.sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
-app.debug = True
 db = SQLAlchemy(app)
 
 
@@ -35,5 +34,13 @@ def addtodo():
     return redirect(url_for('index'))
 
 
+@app.route('/search', methods=['POST', 'GET'])
+def search():
+    text = request.form['text']
+    db.session.add(Todo(text=text))
+    db.session.commit()
+    return redirect(url_for('index'))
+
+
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
