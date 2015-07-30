@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="col-md-4">
+        <ol class="list-group">
+            {% for todo in todos %}
+                {% if todo.is_done %}
+                    <li class="list-group-item list-group-item-danger"
+                        style="text-decoration: line-through;">{{ todo.text }}</li>
+                {% else %}
+                    <li class="list-group-item list-group-item-success">{{ todo.text }}</li>
+                {% endif %}
+            {% endfor %}
+        </ol>
+        <form class="form-inline" action="add" method="post">
+            <div class="form-group">
+                <input class="form-control" type="text" name="text" placeholder="To do">
+            </div>
+            <button class="btn btn-default" type="submit">Добавить</button>
+        </form>
+    </div>
+{% endblock %}
